@@ -58,9 +58,9 @@ export const paymentOptions = [{image:require('../../assets/visaIcon.png'),text:
 export const availableServices = ["Uber Go","UberX","Uber connect","Uber Black","Uber Van","Uber Assist"]
 
 export const carsAround = [
-    // {latitude:31.755110,longitude:72.914030},
-    {latitude:-26.202616,longitude:28.227718},
-    {latitude:-26.202424,longitude:28.236612},
+    {latitude:31.755110,longitude:72.914030},
+    {latitude:30.876216222808353,longitude:75.89160807717145},
+    {latitude:37.4220936,longitude:-122.083922},
     {latitude:-26.208565,longitude:28.237191},
     {latitude:-26.203598,longitude:28.239509}
 ]

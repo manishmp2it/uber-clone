@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import { colors, parameters } from '../global/styles'
 import { Icon } from "react-native-elements"
@@ -6,21 +6,16 @@ import { StatusBar } from 'expo-status-bar'
 import { FlashList } from '@shopify/flash-list'
 import { carsAround, filterData } from '../global/data'
 
-import MapView, { Marker } from 'react-native-maps'
-import { mapStyle } from '../global/mapStyle'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import * as Location from 'expo-location';
+import { mapStyle } from '../global/mapStyle'
+import { Marker } from 'react-native-maps'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
 
   const [latLng, setlatLng] = useState('')
-  const [mapRegion, setmapRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
 
   const checkPermission = async () => {
     const hasPermission = await Location.requestForegroundPermissionsAsync();
@@ -50,13 +45,11 @@ const HomeScreen = () => {
     }
   }
 
-
   const _map = useRef(1);
 
   useEffect(() => {
     checkPermission();
     getLocation();
-    console.log(latLng);
     []
   })
 
@@ -73,9 +66,11 @@ const HomeScreen = () => {
           <View style={styles.view1}>
             <View style={styles.view8}>
               <Text style={styles.text2}>Read a book Take a nap store out window</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate("RequestScreen")}>
               <View style={styles.button1}>
                 <Text style={styles.button1Text}>Ride with Uber</Text>
               </View>
+              </TouchableOpacity>
             </View>
             <View>
               <Image style={styles.image1}
@@ -151,16 +146,17 @@ const HomeScreen = () => {
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <MapView
             ref={_map}
-            // provider=''
+            provider={PROVIDER_GOOGLE}
             style={styles.map}
             customMapStyle={mapStyle}
             showsUserLocation={true}
             followsUserLocation={true}
+            initialRegion={{ ...carsAround[0], latitudeDelta: 0.008, longitudeDelta: 0.008 }}
           >
-            {carsAround.map((item, index) =>    
-                  <MapView.Marker coordinate={item} key={index.toString()}>
-                    <Image source={require('../../assets/carMarker.png')}  resizeMode='cover' />
-                  </MapView.Marker>
+            {carsAround.map((item, index) =>
+              <Marker coordinate={item} key={index}>
+                <Image source={require('../../assets/carMarker.png')} style={styles.carsAround} resizeMode='cover' />
+              </Marker>
             )}
           </MapView>
 
