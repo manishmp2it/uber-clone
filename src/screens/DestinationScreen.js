@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { colors, parameters } from '../global/styles'
 import { Avatar, Icon } from 'react-native-elements';
 import { GOOGLE_MAPS_APIKEY } from "@env"
@@ -39,11 +39,12 @@ const DestinationScreen = ({ navigation }) => {
             </View>
 
             <GooglePlacesAutocomplete
-                nearbyPlacesAPI='GooglePlacesSearch'
+                nearbyPlacesAPI='GoogleReverseGeocoding'
                 placeholder='Going to...'
                 listViewDisplayed="auto"
                 debounce={400}
                 currentLocation={false}
+                currentLocationLabel="Current location"
                 ref={textInput1}
                 minLength={2}
                 autoFocus={true}
@@ -53,6 +54,13 @@ const DestinationScreen = ({ navigation }) => {
                 query={{
                     key: GOOGLE_MAPS_APIKEY,
                     language: 'en'
+                }}
+                renderDescription={row => row.description || row.formatted_address || row.name}
+
+                onPress={(data,details=null)=>{
+
+                    console.log(details.geometry)
+
                 }}
             />
         </>

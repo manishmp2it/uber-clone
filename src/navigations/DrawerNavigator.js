@@ -14,11 +14,11 @@ export default function DrawerNavigator() {
         component={HomeStack}
         options={{
           title: 'Home',
-          drawerIcon: ({ focussed, size }) => <Icon type="material-community" 
-          name="home" 
-          color={focussed ? '#7cc' : colors.grey2} 
-          size={size} />,
-          headerShown:false
+          drawerIcon: ({ focussed, size }) => <Icon type="material-community"
+            name="home"
+            color={focussed ? '#7cc' : colors.grey2}
+            size={size} />,
+            headerShown: false
         }}
       />
     </Drawer.Navigator>

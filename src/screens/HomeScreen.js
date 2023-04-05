@@ -159,9 +159,7 @@ const HomeScreen = ({navigation}) => {
               </Marker>
             )}
           </MapView>
-
         </View>
-
       </ScrollView>
       <StatusBar style='light' backgroundColor='#2058c0' translucent={true} />
     </View>
